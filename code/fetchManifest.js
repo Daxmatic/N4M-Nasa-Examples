@@ -26,30 +26,21 @@ const handlers = {
     [Max.MESSAGE_TYPES.NUMBER]: (num) => {
         Max.post('numbert');
     },
-
-    // Get Manifest and fill man-dict
+    // Get Manifest from the Nasa-Api
     manifest: (darg1) => {
-        Max.post('manifest arg is:',`${darg1}`);
         MarsPhotos
         .manifest(`${darg1}`)
         .then((man) => {
-          
+        // Send Manifest Dict to outlet
           Max.outlet("manifest",man)
-          Max.outlet("name",man.photo_manifest.name)
-          Max.outlet("cam",man.photo_manifest.photos[0].cameras['FHAZ'])
-          //Max.outlet("cam",man.photo_manifest.cameras)
-          console.log("manifest",man)
-          console.log("man.name",man.photo_manifest.name)
-          console.log("man.cameras",man.photo_manifest.photos[0].cameras)
-    
+          Max.outlet("max_sol",man.photo_manifest.max_sol)
+          Max.post("manifest",man)
+          Max.post("max_sol",man.photo_manifest.max_sol)
         })
-
-        .catch(err => Max.post(err));
-     
-    
+        .catch(err => Max.post(err)); 
       },
 //Get Pict and fill photo dict
-/*
+
 
       getpict: (parg1,parg2,parg3) => {
         Max.post(`got my arged message: ${parg1} ${parg2} ${parg3}`);
@@ -66,8 +57,5 @@ const handlers = {
         Max.post(`The following inlet event was ${!handled ? "not " : "" }handled`);
         Max.post('last',...args);
       }
-      
-    };
-    */
 };
     Max.addHandlers(handlers);

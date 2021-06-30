@@ -8,16 +8,12 @@ try {
 	Max.post("Could not load the dotenv module. Please be sure to send the message 'script npm install' to the node.script object to download node modules", Max.POST_LEVELS.ERROR);
 	process.exit(1);
 }
-
 if (!process.env.NASA_API_KEY) {
 	Max.post("No value for key NASA_API_KEY in .env file. Please make sure to create a file called .env with a NASA API key.", Max.POST_LEVELS.ERROR);
 	process.exit(1);
 }
 const { setNasaApiKey,MarsPhotos} = require('nasa-sdk');
 setNasaApiKey(process.env.NASA_API_KEY);
-
-
-
 
 const handlers = {
     [Max.MESSAGE_TYPES.BANG]: () => {
@@ -40,9 +36,7 @@ const handlers = {
         .catch(err => Max.post(err)); 
       },
 //Get Pict and fill photo dict
-
-
-      getpict: (parg1,parg2,parg3) => {
+    getpict: (parg1,parg2,parg3) => {
         Max.post(`got my arged message: ${parg1} ${parg2} ${parg3}`);
         MarsPhotos
       .fetch(`${parg1}`, {

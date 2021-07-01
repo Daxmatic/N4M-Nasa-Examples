@@ -41,6 +41,7 @@ const handlers = {
         MarsPhotos
       .fetch(`${parg1}`, {
         camera: `${parg2}`,
+        page: 5,
         sol: `${parg3}`
       })
       .then(pp => Max.outlet("getdict",pp))
